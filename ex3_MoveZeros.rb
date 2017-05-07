@@ -22,8 +22,25 @@ def move_zeroes(nums)
 		end
 		x += 1
 	end
-
 end
+
+#test this method, should return nil. But x = [1, 3, 5, 7, 9, 0, 0]
+x = [1,3,0,5,0,7,9]
+move_zeroes(x)
+
+#another method is to find all zeros and put them into an array. But this will return a new array.
+
+def zeroes_fast(nums)
+	array_zeros = nums.select{ |x| x==0 }
+	nums = nums - array_zeros + array_zeros
+end
+
+
+
+
+
+
+
 
 
 
