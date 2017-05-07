@@ -28,11 +28,14 @@ end
 x = [1,3,0,5,0,7,9]
 move_zeroes(x)
 
-#another method is to find all zeros and put them into an array. But this will return a new array.
+#Another method is to find all zeros and put them into an array. 
+#Then subtract the array of zeros from the original array and then add it again which puts the zeros at the back.
+#Then puts the array so that the output is nil. 
 
 def zeroes_fast(nums)
 	array_zeros = nums.select{ |x| x==0 }
 	nums = nums - array_zeros + array_zeros
+	puts "#{nums}"
 end
 
 
