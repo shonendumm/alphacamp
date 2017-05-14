@@ -4,35 +4,36 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 # @param {Integer[]} prices
 # @return {Integer}
 
+
+
+Reference:
+http://www.investopedia.com/articles/active-trading/052014/how-use-moving-average-buy-stocks.asp
+http://www.businessinsider.com/the-best-time-to-buy-and-sell-stocks-2016-4?IR=T&r=US&IR=T
+
+
 =end
 
 
 @prices = [2, 2.5, 2.8, 3.1, 3.1, 3.1, 3.1, 3.1]
 
-@prices.last #latest price value
 
-def moving_avg_today
-    sum = @prices.reduce(:+)
-    average = sum / @prices.length
-    average
-end
-
-def moving_avg(days)
-    ma_index = @prices.length - days
-    latest_index = @prices.length - 1
+def moving_avg(days=30)
+initial = @prices.length - days # index to start averaging from,i.e. 20, 30, 50, or 100 days back
+    latest = @prices.length - 1 # index with latest price
     array = []
-    for i in ma_index..latest_index do 
-        array << @prices[i]
+    for i in initial..latest do 
+        array << @prices[i] # get the prices in an array
     end  
-   array.reduce(:+).to_f / array.size #still has floating point error
+require 'bigdecimal'
+require 'bigdecimal/util' # loads the to_d method
+    sum = array.reduce(:+)
+    average = sum.to_d / days # convert to BigDecimal class for arbitrary-precision decimal math
+    @moving_avg = average.to_f.round(4) #convert back to floating num, and round it to 4 decimal places for result. Another way is to use:' "%.4f" % average # '(ignore single quotes).
 end
 
 
-def when_to_buy(current) 
-# Buy during the early bullish phase. Calculate what's the 30-day moving average of the stock's price as comparison. Buy when the price over 5-10 days show a pattern of average higher price than the moving average. http://www.businessinsider.com/the-best-time-to-buy-and-sell-stocks-2016-4?IR=T&r=US&IR=T
-
-    if current > @moving_avg
-
+def when_to_buy(current_price) 
+# Buy during the early bullish phase. Buy when the price over 5-10 days show a pattern of average higher price than the moving average. For example, when moving_avg(50) is higher moving_avg(200). Or compare 
 
 
 end
